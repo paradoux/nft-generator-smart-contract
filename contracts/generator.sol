@@ -2,14 +2,28 @@
 
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 import "hardhat/console.sol";
 
-contract NFTGenerator {
-    constructor() {
-        console.log("Vive la France!");
-    }
+import "hardhat/console.sol";
 
-    function sayHello()  public view {
-        console.log("Et vive la France!");
+contract NFTGenerator is ERC721URIStorage {
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
+
+  constructor() ERC721 ("SquareNFT", "SQUARE") {
+    console.log("This is my contract");
+  }
+
+    function makeAnNFT(string calldata tokenURI) public {
+        require(bytes(tokenURI).length != 0, "tokenURI can't be empty");
+        uint256 newItemId = _tokenIds.current();
+
+        _safeMint(msg.sender, newItemId);
+
+        _setTokenURI(newItemId, tokenURI);
+
+        _tokenIds.increment();
     }
 }

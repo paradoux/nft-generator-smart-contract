@@ -1,1 +1,9 @@
 node_modules
+hardhat.config.js
+.gitignore
+package-lock.json
+/scripts/interact.js
+/scripts/run.js
+
+/artifacts
+/cache
